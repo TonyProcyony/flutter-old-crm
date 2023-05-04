@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>892336628276-hspfcp61fbtfqgd47ejnf58nl2tbs0ot.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.892336628276-hspfcp61fbtfqgd47ejnf58nl2tbs0ot</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBgnpApP117_fz06iURs3xNuiQ1Nd5wY0Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>892336628276</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.old.crm</string>
+	<key>PROJECT_ID</key>
+	<string>old-crm</string>
+	<key>STORAGE_BUCKET</key>
+	<string>old-crm.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:892336628276:ios:4230ec2d3070daa965a061</string>
+	<key>DATABASE_URL</key>
+	<string>https://old-crm-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
