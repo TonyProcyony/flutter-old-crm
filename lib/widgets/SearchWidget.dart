@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key});
+  SearchWidget({super.key, this.string});
 
+  void Function(String query)? string;
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextField(
+        controller: _controller,
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -32,8 +35,10 @@ class _SearchWidgetState extends State<SearchWidget> {
           hintText: "Cerca prodotti",
           prefixIcon: const Icon(Icons.search),
           prefixIconColor: Theme.of(context).colorScheme.primary,
-          // focusedBorder:
         ),
+        onChanged: (value) {
+          widget.string!(_controller.text.trim());
+        },
       ),
     );
   }
