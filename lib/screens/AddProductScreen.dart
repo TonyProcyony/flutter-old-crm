@@ -24,7 +24,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
           'productPrice': productPrice,
           'productVendor': productVendor,
         };
-        print("Product: $product");
         await FirebaseFirestore.instance.collection('products').add(product);
         Navigator.of(context).pop();
       }

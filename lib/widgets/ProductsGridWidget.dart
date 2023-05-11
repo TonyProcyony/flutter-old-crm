@@ -27,20 +27,6 @@ class _ProductsGridWidgetState extends State<ProductsGridWidget> {
         ),
         itemCount: widget.products!.length,
         itemBuilder: (context, index) {
-          // if (searchKeyword != '') {
-          //   // print("Search keyword is: $searchKeyword");
-          //   final filteredList = productsList.where((product) {
-          //     final prod =
-          //         product['productName'].toString().toLowerCase();
-          //     final input = searchKeyword!.toLowerCase();
-          //     return prod.contains(input);
-          //   }).toList();
-          //   return ProductWidget(
-          //     filteredList[index]['productName'],
-          //     double.parse(filteredList[index]['productPrice']),
-          //     filteredList[index]['productVendor'],
-          //   );
-          // }
           return ProductWidget(
             widget.products![index]['productName'],
             double.parse(widget.products![index]['productPrice']),
