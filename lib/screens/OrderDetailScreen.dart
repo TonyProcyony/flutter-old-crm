@@ -10,8 +10,6 @@ class OrderDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    // print(args);
-    // print(args['order']['ordine']);
     final order = args['order']['ordine'];
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

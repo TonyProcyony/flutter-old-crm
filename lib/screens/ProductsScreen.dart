@@ -51,7 +51,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void initState() {
     super.initState();
-    print("Screen was updated");
     getProducts();
   }
 

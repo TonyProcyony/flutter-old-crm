@@ -30,11 +30,25 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     );
                   }
-                  return ListTile(
-                    title: Text(cartProvider.cart[index]['test']),
-                    subtitle: Text(cartProvider.cart[index]['vendor']),
-                    trailing:
-                        Text(cartProvider.cart[index]['quantity'].toString()),
+                  return Dismissible(
+                    key: ObjectKey(cartProvider.cart[index]),
+                    onDismissed: (direction) {
+                      setState(() {
+                        cartProvider.cart.removeAt(index);
+                      });
+                    },
+                    background: Container(
+                      color: const Color.fromRGBO(228, 24, 24, 1),
+                      alignment: Alignment.centerRight,
+                      child: const Icon(Icons.delete),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    child: ListTile(
+                      title: Text(cartProvider.cart[index]['test']),
+                      subtitle: Text(cartProvider.cart[index]['vendor']),
+                      trailing:
+                          Text(cartProvider.cart[index]['quantity'].toString()),
+                    ),
                   );
                 }),
           ),
