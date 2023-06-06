@@ -27,6 +27,11 @@ class ProductWidget extends StatelessWidget {
     Navigator.of(context).pop();
   }
 
+  void deleteProduct(BuildContext context) async {
+    await FirebaseFirestore.instance.collection('products').doc(docId).delete();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -118,11 +123,27 @@ class ProductWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: ElevatedButton(
-                          onPressed: () => changeProduct(context),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Conferma'),
-                          )),
+                        onPressed: () => changeProduct(context),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Conferma'),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: ElevatedButton.icon(
+                        onPressed: () => deleteProduct(context),
+                        style: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style!
+                            .copyWith(
+                              backgroundColor:
+                                  const MaterialStatePropertyAll(Colors.red),
+                            ),
+                        label: const Text("Elimina"),
+                        icon: const Icon(Icons.delete),
+                      ),
                     ),
                   ],
                 ),

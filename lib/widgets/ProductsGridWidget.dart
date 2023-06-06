@@ -13,8 +13,6 @@ class ProductsGridWidget extends StatefulWidget {
 }
 
 class _ProductsGridWidgetState extends State<ProductsGridWidget> {
-  void filter(String q) async {}
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

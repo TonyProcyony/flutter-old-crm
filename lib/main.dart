@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_old_crm/providers/CartProvider.dart';
 import 'package:flutter_old_crm/providers/EmailProvider.dart';
 import 'package:flutter_old_crm/providers/GoogleSignInProvider.dart';
+import 'package:flutter_old_crm/screens/AddMessageScreen.dart';
 import 'package:flutter_old_crm/screens/AddProductScreen.dart';
 import 'package:flutter_old_crm/screens/AddVendorScreen.dart';
 import 'package:flutter_old_crm/screens/AuthScreen.dart';
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
               routes: {
                 // ProductDetailScreen.routeName: (ctx) =>
                 //     const ProductDetailScreen(),
+                AddMessageScreen.routeName: (context) => AddMessageScreen(),
                 AddProductScreen.routeName: (context) =>
                     const AddProductScreen(),
                 AddVendorScreen.routeName: (context) => const AddVendorScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_old_crm/providers/CartProvider.dart';
 import 'package:flutter_old_crm/providers/EmailProvider.dart';
+import 'package:flutter_old_crm/screens/AddMessageScreen.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -14,18 +15,13 @@ class _CartScreenState extends State<CartScreen> {
   List products = [];
 
   getProducts(BuildContext context, List<Map<String, dynamic>> cart) {
-    // print(cart);
-    // if (products.isEmpty) {
     for (var object in cart) {
-      // print(object['products']);
       for (var element in object['products']) {
-        // print(element);
         if (!products.contains(element)) {
           products.add(element);
         }
       }
     }
-    // }
   }
 
   @override
@@ -33,6 +29,7 @@ class _CartScreenState extends State<CartScreen> {
     final size = MediaQuery.of(context).size;
     final cartProvider = Provider.of<CartProvider>(context);
     getProducts(context, cartProvider.cart);
+
     return SafeArea(
       child: Stack(
         children: [
@@ -81,10 +78,30 @@ class _CartScreenState extends State<CartScreen> {
                       }),
                 ),
           Positioned(
-              bottom: 15,
-              width: size.width,
-              child: Center(
-                child: ElevatedButton(
+            bottom: 15,
+            width: size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AddMessageScreen.routeName),
+                  style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Colors.blue),
+                      ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      'Aggiugni messaggio',
+                    ),
+                  ),
+                ),
+                ElevatedButton(
                   onPressed: () async {
                     await cartProvider.placeOrder();
                     final emailProvider =
@@ -105,7 +122,9 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
-              )),
+              ],
+            ),
+          ),
         ],
       ),
     );
