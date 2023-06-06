@@ -13,8 +13,6 @@ class ProductsGridWidget extends StatefulWidget {
 }
 
 class _ProductsGridWidgetState extends State<ProductsGridWidget> {
-  void filter(String q) async {}
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -31,6 +29,7 @@ class _ProductsGridWidgetState extends State<ProductsGridWidget> {
             widget.products![index]['productName'],
             double.parse(widget.products![index]['productPrice']),
             widget.products![index]['productVendor'],
+            widget.products![index].id,
           );
         },
       ),
