@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_old_crm/providers/CartProvider.dart';
+import 'package:flutter_old_crm/providers/EmailProvider.dart';
+import 'package:flutter_old_crm/providers/GoogleSignInProvider.dart';
 import 'package:flutter_old_crm/screens/AddProductScreen.dart';
 import 'package:flutter_old_crm/screens/AddVendorScreen.dart';
+import 'package:flutter_old_crm/screens/AuthScreen.dart';
 import 'package:flutter_old_crm/screens/CartScreen.dart';
 import 'package:flutter_old_crm/screens/HomeScreen.dart';
 import 'package:flutter_old_crm/screens/OrderDetailScreen.dart';
@@ -33,11 +37,17 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(
                 create: (context) => CartProvider(),
               ),
+              ChangeNotifierProvider(
+                create: (context) => GoogleSignInProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => EmailProvider(),
+              ),
             ],
             child: MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
-                // primaryColor: Color.fromRGBO(65, 165, 42, 1),
+                primaryColor: const Color.fromRGBO(65, 165, 42, 1),
                 colorScheme: const ColorScheme(
                   brightness: Brightness.dark,
                   primary: Color.fromRGBO(65, 165, 42, 1),
@@ -47,7 +57,7 @@ class MyApp extends StatelessWidget {
                   onSecondary: Colors.lightBlue,
                   error: Colors.red,
                   onError: Colors.red,
-                  background: Color.fromRGBO(15, 15, 15, 1),
+                  background: Color.fromRGBO(5, 5, 5, 1),
                   onBackground: Color.fromRGBO(35, 35, 35, 1),
                   surface: Color.fromRGBO(40, 40, 40, 1),
                   onSurface: Color.fromRGBO(70, 70, 70, 1),
@@ -73,7 +83,19 @@ class MyApp extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
               ),
-              home: const NavigationPage(),
+              home: StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return const NavigationPage();
+                    }
+                    return const AuthScreen();
+                  }),
               routes: {
                 // ProductDetailScreen.routeName: (ctx) =>
                 //     const ProductDetailScreen(),

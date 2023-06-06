@@ -82,7 +82,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                     return;
                   }
                   Map<String, dynamic>? _product = {
-                    'test': widget.productTitle,
+                    'name': widget.productTitle,
                     'price': widget.productPrice,
                     'vendor': widget.productVendor,
                     'quantity': _counter,

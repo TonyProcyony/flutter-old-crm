@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   static const routeName = 'orderdetail-screen';
@@ -31,7 +30,7 @@ class OrderDetailScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(order[index]['test']),
+                          child: Text(order[index]['name']),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class AddVendorScreen extends StatefulWidget {
   static const routeName = 'addvendor-screen';
@@ -30,6 +29,7 @@ class _AddVendorScreenState extends State<AddVendorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Form(
           key: _formKey,

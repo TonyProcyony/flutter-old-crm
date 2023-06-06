@@ -14,13 +14,7 @@ class SettingWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color.fromRGBO(45, 45, 45, 1),
-                Color.fromRGBO(25, 25, 25, 1),
-              ]),
+          color: Theme.of(context).colorScheme.onBackground,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(

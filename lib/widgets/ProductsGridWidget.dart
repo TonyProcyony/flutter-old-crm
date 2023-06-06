@@ -31,6 +31,7 @@ class _ProductsGridWidgetState extends State<ProductsGridWidget> {
             widget.products![index]['productName'],
             double.parse(widget.products![index]['productPrice']),
             widget.products![index]['productVendor'],
+            widget.products![index].id,
           );
         },
       ),

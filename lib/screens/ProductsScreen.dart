@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_old_crm/widgets/ProductWidget.dart';
 import 'package:flutter_old_crm/widgets/ProductsGridWidget.dart';
 import 'package:flutter_old_crm/widgets/SearchWidget.dart';
-
-import '../widgets/ProductDetailWidget.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
