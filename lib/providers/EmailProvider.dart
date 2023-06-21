@@ -20,11 +20,12 @@ class EmailProvider with ChangeNotifier {
     for (var element in cart) {
       final productsList = element['products'];
       for (var product in productsList) {
-        productsToSend
-            .add('${product['name']} Quantita: ${product['quantity']}');
+        productsToSend.add(
+            '${product['quantity']} ${product['type']} ${product['name']}');
       }
       final message = Message()
         ..from = Address(googleUser.email)
+        ..subject = element['emailSubject']
         ..recipients = [element['email']]
         ..text = '${element['message']}\n\n${productsToSend.join("\n")}';
 

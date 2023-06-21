@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
                           onDismissed: (direction) {
                             setState(() {
                               products.removeAt(index);
-                              // cartProvider.cart.removeAt(index);
+                              cartProvider.cart.removeAt(index);
                             });
                           },
                           background: Container(

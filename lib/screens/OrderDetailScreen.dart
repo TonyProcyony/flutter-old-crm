@@ -46,6 +46,11 @@ class OrderDetailScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(5.0),
                           child: Text('Fornitore: ${order[index]['vendor']}'),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                              'Prezzo totale: ${order[index]['price'] * order[index]['quantity']}'),
+                        ),
                       ],
                     ));
               }),

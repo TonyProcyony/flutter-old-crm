@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -33,7 +34,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Future<void> getVendors() async {
-    final data = await FirebaseFirestore.instance.collection('vendors').get();
+    final user = await FirebaseAuth.instance.currentUser!.email;
+    final collection =
+        user == 'bar.oldsquare@gmail.com' ? 'barVendors' : 'vendors';
+    final data = await FirebaseFirestore.instance.collection(collection).get();
     final docs = data.docs;
     final vendors = docs.map((e) {
       return DropdownMenuItem(
@@ -99,7 +103,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     contentPadding: const EdgeInsets.all(5),
                     hintText: 'Prezzo prodotto',
                   ),
-                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Inserisci prezzo';
@@ -123,16 +126,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     // hintText: 'Inserisci fornitore',
                   ),
                   hint: const Text('Inserisci fornitore'),
-                  // items: const [
-                  //   DropdownMenuItem(
-                  //     value: '1',
-                  //     child: Text('1'),
-                  //   ),
-                  //   DropdownMenuItem(
-                  //     value: '2',
-                  //     child: Text('2'),
-                  //   ),
-                  // ],
                   items: vendorsList,
                   onChanged: (value) {
                     productVendor = value;

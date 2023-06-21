@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
               ),
             ],
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: ThemeData(
                 primaryColor: const Color.fromRGBO(65, 165, 42, 1),
@@ -124,7 +125,7 @@ class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _screens = <Widget>[
-    HomeScreen(),
+    // HomeScreen(),
     ProductsScreen(),
     OrdersScreen(),
     CartScreen(),
@@ -146,10 +147,10 @@ class _NavigationPageState extends State<NavigationPage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         currentIndex: _selectedIndex,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home),
+          //   label: 'Home',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.storage),
             label: 'Ordina',

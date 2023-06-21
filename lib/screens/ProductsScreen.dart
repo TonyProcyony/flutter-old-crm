@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_old_crm/widgets/ProductsGridWidget.dart';
 import 'package:flutter_old_crm/widgets/SearchWidget.dart';
@@ -18,7 +19,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> filteredList = [];
 
   Future<void> getProducts() async {
-    final data = await FirebaseFirestore.instance.collection('products').get();
+    final user = await FirebaseAuth.instance.currentUser!.email;
+    final collection =
+        user == 'bar.oldsquare@gmail.com' ? 'barProducts' : 'products';
+    final data = await FirebaseFirestore.instance.collection(collection).get();
     final docs = data.docs;
     setState(() {
       loadedProductsList = docs;
@@ -36,13 +40,24 @@ class _ProductsScreenState extends State<ProductsScreen> {
     if (query.isNotEmpty) {
       filteredList = productsList.where((product) {
         final productName = product['productName'].toString().toLowerCase();
+        final productVendor = product['productVendor'].toString().toLowerCase();
         final input = query.toLowerCase();
-        return productName.contains(input);
+        if (productName.contains(input)) {
+          return productName.contains(input);
+        } else {
+          return productVendor.contains(input);
+        }
       }).toList();
       setState(() {
         loadedProductsList = filteredList;
       });
     }
+  }
+
+  deleteProduct(int index, String docId) async {
+    await loadedProductsList.removeAt(index);
+    await FirebaseFirestore.instance.collection('products').doc(docId).delete();
+    Navigator.of(context).pop();
   }
 
   @override

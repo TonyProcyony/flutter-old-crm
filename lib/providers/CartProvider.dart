@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../models/Product.dart';
 
 class CartProvider extends ChangeNotifier {
   String? message;
@@ -20,9 +23,12 @@ class CartProvider extends ChangeNotifier {
   final currentDate = Timestamp.now();
 
   addToCart(Map<String, dynamic> product) async {
+    final user = await FirebaseAuth.instance.currentUser!.email;
+    final collection =
+        user == 'banco.oldsquare@gmail.com' ? 'barVendors' : 'vendors';
     String? vendorEmail;
     await FirebaseFirestore.instance
-        .collection('vendors')
+        .collection(collection)
         .where('vendor', isEqualTo: product['vendor'])
         .get()
         .then((QuerySnapshot doc) => vendorEmail = doc.docs[0]['email']);
@@ -43,6 +49,7 @@ class CartProvider extends ChangeNotifier {
           'vendor': product['vendor'],
           'email': vendorEmail,
           'message': '',
+          'emailSubject': '',
           'products': [product],
         });
       }
@@ -51,6 +58,7 @@ class CartProvider extends ChangeNotifier {
         'vendor': product['vendor'],
         'email': vendorEmail,
         'message': '',
+        'emailSubject': '',
         'products': [product],
       });
     }
@@ -58,13 +66,16 @@ class CartProvider extends ChangeNotifier {
   }
 
   placeOrder() async {
+    final user = await FirebaseAuth.instance.currentUser!.email;
+    final collection =
+        user == 'bar.oldsquare@gmail.com' ? 'barOrders' : 'orders';
     List order = [];
     for (var element in cart) {
       for (var products in element['products']) {
         order.add(products);
       }
     }
-    await FirebaseFirestore.instance.collection('orders').add({
+    await FirebaseFirestore.instance.collection(collection).add({
       'date': currentDate,
       'ordine': order,
     });
