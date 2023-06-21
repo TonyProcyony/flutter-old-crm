@@ -6,7 +6,8 @@ class AddMessageScreen extends StatelessWidget {
   static const routeName = 'add-message-screen';
   AddMessageScreen({super.key});
 
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _subjectController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +39,53 @@ class AddMessageScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextField(
-                            controller: _controller,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: TextField(
+                              controller: _subjectController,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  ),
                                 ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                    width: 1,
+                                  ),
+                                ),
+                                hintText: 'Oggetto mail',
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                  width: 1,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: TextField(
+                              controller: _messageController,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  ),
                                 ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                    width: 1,
+                                  ),
+                                ),
+                                hintText: "Messaggio",
                               ),
                             ),
                           ),
@@ -64,7 +94,9 @@ class AddMessageScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 cartProvider.cart[index]['message'] =
-                                    _controller.text;
+                                    _messageController.text;
+                                cartProvider.cart[index]['emailSubject'] =
+                                    _subjectController.text;
                                 Navigator.of(context).pop();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -80,7 +112,8 @@ class AddMessageScreen extends StatelessWidget {
                                     content: const Text('Messaggio aggiunto'),
                                   ),
                                 );
-                                _controller.clear();
+                                _messageController.clear();
+                                _subjectController.clear();
                               },
                               child: const Text(
                                 'Aggiugni messaggio',

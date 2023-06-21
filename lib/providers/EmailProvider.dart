@@ -7,8 +7,6 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 class EmailProvider with ChangeNotifier {
-  // String? token;
-  // String? email;
   GoogleSignInAccount? user;
   sendEmail(List<Map<String, dynamic>> cart) async {
     final googleSignIn = GoogleSignIn(scopes: ['https://mail.google.com/']);
@@ -18,30 +16,19 @@ class EmailProvider with ChangeNotifier {
 
     final googleAuth = await googleUser.authentication;
 
-    // print(googleUser);
-    // print(googleAuth.accessToken);
-
     final smtpServer =
         gmailSaslXoauth2(googleUser.email, googleAuth.accessToken!);
 
-    // print('SMTP: $smtpServer');
-
-    // List<String>? order;
-
-    // for (var element in cart) {
-    // }
-
     List productsToSend = [];
     for (var element in cart) {
-      // створити новий список в якому будуть всі продукти одного постачальника
-      // додати всі продукти з одного списку в інший через join("\n")
       final productsList = element['products'];
       for (var product in productsList) {
-        productsToSend
-            .add('${product['name']} Quantita: ${product['quantity']}');
+        productsToSend.add(
+            '${product['quantity']} ${product['type']} ${product['name']}');
       }
       final message = Message()
         ..from = Address(googleUser.email)
+        ..subject = element['emailSubject']
         ..recipients = [element['email']]
         ..text = '${element['message']}\n\n${productsToSend.join("\n")}';
 

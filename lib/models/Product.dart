@@ -1,13 +1,15 @@
 class Product {
   final String? name;
-  final String? description;
-  final String? vendor;
   final double? price;
+  final String? vendor;
+  final String? type;
+  final int? quantity;
 
   Product({
     this.name,
-    this.description,
     this.price,
     this.vendor,
+    this.type,
+    this.quantity,
   });
 }

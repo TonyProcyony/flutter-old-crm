@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_old_crm/screens/ProductsScreen.dart';
 import 'package:flutter_old_crm/widgets/ProductDetailWidget.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -17,6 +18,8 @@ class ProductWidget extends StatelessWidget {
 
 // class _ProductWidgetState extends State<ProductWidget> {
   static final formKey = GlobalKey<FormState>();
+
+  final ProductsScreen _productsScreen = ProductsScreen();
 
   void changeProduct(BuildContext context) async {
     await FirebaseFirestore.instance.collection('products').doc(docId).update({
@@ -116,7 +119,7 @@ class ProductWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        initialValue: title,
+                        initialValue: vendor,
                         onChanged: (value) => changedVendor = value.trim(),
                       ),
                     ),
