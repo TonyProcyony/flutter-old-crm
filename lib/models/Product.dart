@@ -1,9 +1,9 @@
 class Product {
-  final String? name;
-  final double? price;
-  final String? vendor;
-  final String? type;
-  final int? quantity;
+  String? name;
+  double? price;
+  String? vendor;
+  String? type;
+  int? quantity;
 
   Product({
     this.name,

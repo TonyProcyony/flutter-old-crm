@@ -22,6 +22,7 @@ class _CartScreenState extends State<CartScreen> {
         }
       }
     }
+    print(products);
   }
 
   @override
@@ -29,7 +30,6 @@ class _CartScreenState extends State<CartScreen> {
     final size = MediaQuery.of(context).size;
     final cartProvider = Provider.of<CartProvider>(context);
     getProducts(context, cartProvider.cart);
-
     return SafeArea(
       child: Stack(
         children: [
@@ -69,10 +69,10 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           direction: DismissDirection.endToStart,
                           child: ListTile(
-                            title: Text(products[index]['name']),
-                            subtitle: Text(products[index]['vendor']),
-                            trailing:
-                                Text(products[index]['quantity'].toString()),
+                            title: Text(products[index].name),
+                            subtitle: Text(products[index].vendor),
+                            trailing: Text(
+                                '${products[index].quantity.toString()} ${products[index].type}'),
                           ),
                         );
                       }),

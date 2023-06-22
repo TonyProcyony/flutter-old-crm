@@ -1,31 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_old_crm/screens/ProductsScreen.dart';
 import 'package:flutter_old_crm/widgets/ProductDetailWidget.dart';
 
+import '../models/Product.dart';
+
 class ProductWidget extends StatelessWidget {
-  ProductWidget(this.title, this.price, this.vendor, this.docId, {super.key});
-  final String title;
-  final double price;
-  final String vendor;
-  final String docId;
+  ProductWidget(
+    this.product, {
+    super.key,
+    // this.title,
+    // this.price,
+    // this.vendor,
+    this.docId,
+  });
+
+  final Product product;
+  // final String? title;
+  // final double? price;
+  // final String? vendor;
+  final String? docId;
+
   String? changedTitle;
   String? changedPrice;
   String? changedVendor;
-//   @override
-//   State<ProductWidget> createState() => _ProductWidgetState();
-// }
 
-// class _ProductWidgetState extends State<ProductWidget> {
   static final formKey = GlobalKey<FormState>();
-
-  final ProductsScreen _productsScreen = ProductsScreen();
 
   void changeProduct(BuildContext context) async {
     await FirebaseFirestore.instance.collection('products').doc(docId).update({
-      'productName': changedTitle == null ? title : changedTitle,
-      'productPrice': changedPrice == null ? price : changedPrice,
-      'productVendor': changedVendor == null ? vendor : changedVendor,
+      'productName': changedTitle == null ? product.name : changedTitle,
+      'productPrice': changedPrice == null ? product.price : changedPrice,
+      'productVendor': changedVendor == null ? product.vendor : changedVendor,
     });
     Navigator.of(context).pop();
   }
@@ -40,7 +45,7 @@ class ProductWidget extends StatelessWidget {
     return InkWell(
       onTap: () => showModalBottomSheet(
         context: context,
-        builder: (context) => ProductDetailWidget(price, title, vendor),
+        builder: (context) => ProductDetailWidget(product),
       ),
       onLongPress: () => showDialog(
         context: context,
@@ -73,7 +78,7 @@ class ProductWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        initialValue: title,
+                        initialValue: product.name,
                         onChanged: (value) => changedTitle = value.trim(),
                       ),
                     ),
@@ -96,7 +101,7 @@ class ProductWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        initialValue: price.toString(),
+                        initialValue: product.price.toString(),
                         onChanged: (value) => changedPrice = value,
                       ),
                     ),
@@ -119,7 +124,7 @@ class ProductWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        initialValue: vendor,
+                        initialValue: product.vendor,
                         onChanged: (value) => changedVendor = value.trim(),
                       ),
                     ),
@@ -167,13 +172,13 @@ class ProductWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                title,
+                product.name!,
                 textAlign: TextAlign.center,
                 softWrap: true,
               ),
             ),
             Text(
-              '${price.toString()}€',
+              '${product.price.toString()}€',
             ),
           ],
         ),

@@ -9,7 +9,7 @@ import 'package:flutter_old_crm/screens/AddProductScreen.dart';
 import 'package:flutter_old_crm/screens/AddVendorScreen.dart';
 import 'package:flutter_old_crm/screens/AuthScreen.dart';
 import 'package:flutter_old_crm/screens/CartScreen.dart';
-import 'package:flutter_old_crm/screens/HomeScreen.dart';
+// import 'package:flutter_old_crm/screens/HomeScreen.dart';
 import 'package:flutter_old_crm/screens/OrderDetailScreen.dart';
 import 'package:flutter_old_crm/screens/OrdersScreen.dart';
 import 'package:flutter_old_crm/screens/ProductsScreen.dart';
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primaryColor: const Color.fromRGBO(65, 165, 42, 1),
                 colorScheme: const ColorScheme(
-                  brightness: Brightness.dark,
+                  brightness: Brightness.light,
                   primary: Color.fromRGBO(65, 165, 42, 1),
                   onPrimary: Color.fromRGBO(75, 175, 52, 1),
                   // secondary: Color.fromRGBO(65, 165, 42, 1),
@@ -59,10 +59,10 @@ class MyApp extends StatelessWidget {
                   onSecondary: Colors.lightBlue,
                   error: Colors.red,
                   onError: Colors.red,
-                  background: Color.fromRGBO(5, 5, 5, 1),
-                  onBackground: Color.fromRGBO(35, 35, 35, 1),
-                  surface: Color.fromRGBO(40, 40, 40, 1),
-                  onSurface: Color.fromRGBO(70, 70, 70, 1),
+                  background: Color.fromRGBO(255, 255, 255, 1),
+                  onBackground: Color.fromRGBO(220, 220, 220, 1),
+                  surface: Color.fromRGBO(210, 210, 210, 1),
+                  onSurface: Color.fromRGBO(195, 195, 195, 1),
                 ),
                 elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(

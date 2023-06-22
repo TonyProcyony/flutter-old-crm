@@ -22,21 +22,20 @@ class CartProvider extends ChangeNotifier {
   final firebaseDate = DateFormat();
   final currentDate = Timestamp.now();
 
-  addToCart(Map<String, dynamic> product) async {
+  addToCart(Product product) async {
     final user = await FirebaseAuth.instance.currentUser!.email;
     final collection =
         user == 'banco.oldsquare@gmail.com' ? 'barVendors' : 'vendors';
     String? vendorEmail;
     await FirebaseFirestore.instance
         .collection(collection)
-        .where('vendor', isEqualTo: product['vendor'])
+        .where('vendor', isEqualTo: product.vendor)
         .get()
         .then((QuerySnapshot doc) => vendorEmail = doc.docs[0]['email']);
-    print(vendorEmail);
     if (cart.isNotEmpty) {
       bool exist = false;
       for (var prod in cart) {
-        if (prod['vendor'] == product['vendor']) {
+        if (prod['vendor'] == product.vendor) {
           exist = true;
           if (exist) {
             prod['products'].add(product);
@@ -46,7 +45,7 @@ class CartProvider extends ChangeNotifier {
       }
       if (!exist) {
         cart.add({
-          'vendor': product['vendor'],
+          'vendor': product.vendor,
           'email': vendorEmail,
           'message': '',
           'emailSubject': '',
@@ -55,13 +54,14 @@ class CartProvider extends ChangeNotifier {
       }
     } else {
       cart.add({
-        'vendor': product['vendor'],
+        'vendor': product.vendor,
         'email': vendorEmail,
         'message': '',
         'emailSubject': '',
         'products': [product],
       });
     }
+    print(cart);
     notifyListeners();
   }
 

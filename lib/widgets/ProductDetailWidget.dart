@@ -5,11 +5,16 @@ import 'package:provider/provider.dart';
 
 class ProductDetailWidget extends StatefulWidget {
   const ProductDetailWidget(
-      this.productPrice, this.productTitle, this.productVendor,
-      {super.key});
-  final String productTitle;
-  final double productPrice;
-  final String productVendor;
+    this.product, {
+    super.key,
+    // this.productPrice,
+    // this.productTitle,
+    // this.productVendor,
+  });
+  final Product product;
+  // final String? productTitle;
+  // final double? productPrice;
+  // final String? productVendor;
   @override
   State<ProductDetailWidget> createState() => _ProductDetailWidgetState();
 }
@@ -45,8 +50,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(widget.productTitle),
-            Text('Prezzo per unità ${widget.productPrice.toString()}'),
+            Text(widget.product.name!),
+            Text('Prezzo per unità ${widget.product.price.toString()}'),
             Wrap(
               alignment: WrapAlignment.center,
               spacing: 3,
@@ -181,14 +186,20 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                   //   type: type,
                   //   quantity: _counter,
                   // );
-                  Map<String, dynamic>? _product = {
-                    'name': widget.productTitle,
-                    'price': widget.productPrice,
-                    'vendor': widget.productVendor,
-                    'type': type,
-                    'quantity': _counter,
-                  };
-                  await cartProvider.addToCart(_product);
+                  // Map<String, dynamic>? _product = {
+                  //   'name': widget.product.name,
+                  //   'price': widget.product.price,
+                  //   'vendor': widget.product.vendor,
+                  //   'type': type,
+                  //   'quantity': _counter,
+                  // };
+                  Product product = Product()
+                    ..name = widget.product.name
+                    ..price = widget.product.price
+                    ..vendor = widget.product.vendor
+                    ..type = type
+                    ..quantity = _counter;
+                  await cartProvider.addToCart(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Theme.of(context).colorScheme.primary,

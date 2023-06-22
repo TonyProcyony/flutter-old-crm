@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_old_crm/widgets/ProductsGridWidget.dart';
 import 'package:flutter_old_crm/widgets/SearchWidget.dart';
 
+import '../models/Product.dart';
+
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
@@ -14,9 +16,9 @@ class ProductsScreen extends StatefulWidget {
 class _ProductsScreenState extends State<ProductsScreen> {
   String? searchKeyword;
 
-  List<QueryDocumentSnapshot<Map<String, dynamic>>> loadedProductsList = [];
-  List<QueryDocumentSnapshot<Map<String, dynamic>>> productsList = [];
-  List<QueryDocumentSnapshot<Map<String, dynamic>>> filteredList = [];
+  List<Product> loadedProductsList = [];
+  List<Product> productsList = [];
+  List<Product> filteredList = [];
 
   Future<void> getProducts() async {
     final user = await FirebaseAuth.instance.currentUser!.email;
@@ -24,8 +26,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
         user == 'bar.oldsquare@gmail.com' ? 'barProducts' : 'products';
     final data = await FirebaseFirestore.instance.collection(collection).get();
     final docs = data.docs;
+    for (var doc in docs) {
+      loadedProductsList.add(Product(
+        name: doc['productName'],
+        price: double.parse(doc['productPrice']),
+        vendor: doc['productVendor'],
+      ));
+    }
     setState(() {
-      loadedProductsList = docs;
       productsList = loadedProductsList;
     });
   }
@@ -39,8 +47,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
     }
     if (query.isNotEmpty) {
       filteredList = productsList.where((product) {
-        final productName = product['productName'].toString().toLowerCase();
-        final productVendor = product['productVendor'].toString().toLowerCase();
+        final productName = product.name.toString().toLowerCase();
+        final productVendor = product.vendor.toString().toLowerCase();
         final input = query.toLowerCase();
         if (productName.contains(input)) {
           return productName.contains(input);
