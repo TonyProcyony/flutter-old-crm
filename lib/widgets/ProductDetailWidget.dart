@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_old_crm/models/Orders.dart';
 import 'package:flutter_old_crm/models/Product.dart';
 import 'package:flutter_old_crm/providers/CartProvider.dart';
 import 'package:provider/provider.dart';
@@ -199,7 +200,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                     ..vendor = widget.product.vendor
                     ..type = type
                     ..quantity = _counter;
-                  await cartProvider.addToCart(product);
+                  final order = Orders()..vendor = product.vendor;
+                  await cartProvider.addToCart(order, product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Theme.of(context).colorScheme.primary,

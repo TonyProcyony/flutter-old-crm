@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../models/Orders.dart';
 import '../models/Product.dart';
 
 class CartProvider extends ChangeNotifier {
   String? message;
-  List<Map<String, dynamic>> cart = [];
+
+  List<Orders> cart = [];
 
   // cart = [
   //   {
@@ -22,44 +24,42 @@ class CartProvider extends ChangeNotifier {
   final firebaseDate = DateFormat();
   final currentDate = Timestamp.now();
 
-  addToCart(Product product) async {
+  addToCart(Orders order, Product product) async {
     final user = await FirebaseAuth.instance.currentUser!.email;
     final collection =
         user == 'banco.oldsquare@gmail.com' ? 'barVendors' : 'vendors';
     String? vendorEmail;
+
     await FirebaseFirestore.instance
         .collection(collection)
         .where('vendor', isEqualTo: product.vendor)
         .get()
         .then((QuerySnapshot doc) => vendorEmail = doc.docs[0]['email']);
+
     if (cart.isNotEmpty) {
       bool exist = false;
       for (var prod in cart) {
-        if (prod['vendor'] == product.vendor) {
+        if (prod.vendor == order.vendor) {
           exist = true;
           if (exist) {
-            prod['products'].add(product);
+            prod.products!.add(product);
             break;
           }
         }
       }
       if (!exist) {
-        cart.add({
-          'vendor': product.vendor,
-          'email': vendorEmail,
-          'message': '',
-          'emailSubject': '',
-          'products': [product],
-        });
+        order
+          ..email = vendorEmail
+          ..message = ''
+          ..products = [product];
+        cart.add(order);
       }
     } else {
-      cart.add({
-        'vendor': product.vendor,
-        'email': vendorEmail,
-        'message': '',
-        'emailSubject': '',
-        'products': [product],
-      });
+      order
+        ..email = vendorEmail
+        ..message = ''
+        ..products = [product];
+      cart.add(order);
     }
     print(cart);
     notifyListeners();
@@ -71,8 +71,15 @@ class CartProvider extends ChangeNotifier {
         user == 'bar.oldsquare@gmail.com' ? 'barOrders' : 'orders';
     List order = [];
     for (var element in cart) {
-      for (var products in element['products']) {
-        order.add(products);
+      for (var prod in element.products!) {
+        Map<String, dynamic> product = {
+          'name': prod.name,
+          'price': prod.price,
+          'vendor': prod.vendor,
+          'type': prod.type,
+          'quantity': prod.quantity,
+        };
+        order.add(product);
       }
     }
     await FirebaseFirestore.instance.collection(collection).add({
@@ -85,76 +92,3 @@ class CartProvider extends ChangeNotifier {
     cart.clear();
   }
 }
-
-// void main() {
-//   List<Map<String, dynamic>> cart = [];
-
-//   Map<String, dynamic>? product1 = {
-//                     'name': 'Carta forno',
-//                     'price': 2.2,
-//                     'vendor': "Roven carta",
-//                     'quantity': 1,
-//                   };
-
-//   Map<String, dynamic>? product2 = {
-//                     'name': 'Tissu',
-//                     'price': 1.79,
-//                     'vendor': "Roven carta",
-//                     'quantity': 3,
-//                   };
-
-//   Map<String, dynamic>? product3 = {
-//                     'name': "Cannucce",
-//                     'price': 0.6,
-//                     'vendor': 'Cannucce vendor',
-//                     'quantity': 4,
-//                   };
-//   cart.clear();
-//   print(cart);
-
-// //   функція яка примає параметр (продукт), перевіряє чи є об'єкт в списку з таким самим постачальником
-// //   як і постачальник продукту. у випадку правди просто додається продукт до списку продуктів цього
-// //   постачальника, якшо ні то створюється новий об'єкт
-
-//   addProduct(Map<String,dynamic> prod) {
-//     if(cart.isNotEmpty) {
-// //       print("Cart is not empty: ${cart.isNotEmpty}");
-//       bool exist = false;
-//       for(var product in cart) {
-//        if(product['vendor'] == prod['vendor']) {
-//          exist = true;
-//          if (exist) {
-//            product['products'].add(prod);
-//            break;
-//          }
-//        }
-//       }
-//       if (!exist) {
-//           cart.add({
-//           'vendor': prod['vendor'],
-//           'email': 'TestEmail',
-//           'message': '',
-//           'products': [prod],
-//           });
-//         }
-//     } else {
-//       cart.add({
-//       'vendor': prod['vendor'],
-//       'email': 'ProductDoesn\'tExistEmail',
-//       'message': '',
-//       'products': [prod],
-//       });
-//     }
-//   }
-
-//   addProduct(product1);
-//   print("Added product1");
-//   addProduct(product2);
-//   print("Added product2");
-//   addProduct(product3);
-//   print("Added product3");
-
-//   print(cart);
-
-// //   print(cart);
-// }

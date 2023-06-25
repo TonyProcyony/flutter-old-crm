@@ -1,4 +1,4 @@
-# OldSquare Crm
+# OldSquare WMS
 
 A simple application to manage pub's inventory and to make orders simplier!
 

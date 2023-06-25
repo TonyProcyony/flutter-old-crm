@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_old_crm/models/Orders.dart';
 import 'package:flutter_old_crm/providers/CartProvider.dart';
 import 'package:flutter_old_crm/providers/EmailProvider.dart';
 import 'package:flutter_old_crm/screens/AddMessageScreen.dart';
@@ -14,9 +15,9 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   List products = [];
 
-  getProducts(BuildContext context, List<Map<String, dynamic>> cart) {
+  getProducts(BuildContext context, List<Orders> cart) {
     for (var object in cart) {
-      for (var element in object['products']) {
+      for (var element in object.products!) {
         if (!products.contains(element)) {
           products.add(element);
         }

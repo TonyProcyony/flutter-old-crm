@@ -1,3 +1,8 @@
+// OOP cart structure
+// Divided in Product, Order and Cart
+// Product is added to Order. Exactly to List<Product> products
+// Order is added to Cart
+
 class Product {
   String? name;
   double? price;
@@ -31,10 +36,4 @@ class Order {
   // Object? order = {
   //   'vendor': vendor,
   // };
-}
-
-class Cart {
-  final List<Order>? cart;
-
-  Cart({this.cart});
 }

@@ -21,7 +21,7 @@ class AddMessageScreen extends StatelessWidget {
         itemCount: cartProvider.cart.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(cartProvider.cart[index]['vendor']),
+            title: Text(cartProvider.cart[index].vendor!),
             onTap: () {
               showDialog(
                 context: context,
@@ -93,9 +93,9 @@ class AddMessageScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             child: ElevatedButton(
                               onPressed: () {
-                                cartProvider.cart[index]['message'] =
+                                cartProvider.cart[index].message =
                                     _messageController.text;
-                                cartProvider.cart[index]['emailSubject'] =
+                                cartProvider.cart[index].emailSubject =
                                     _subjectController.text;
                                 Navigator.of(context).pop();
                                 ScaffoldMessenger.of(context).showSnackBar(
