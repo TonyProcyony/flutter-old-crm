@@ -44,16 +44,16 @@ app.*.map.json
 /android/app/release
 
 #private
-android
-build
-ios
-linux
-macos
-test
-web
-windows
+android/
+build/
+ios/
+linux/
+macos/
+test/
+web/
+windows/
 .flutter-plugins
 .flutter-plugins-dependencies
 .metadata
-analysys_options.yaml
-pbspec.lock
+analysys_options.yaml/
+pbspec.lock/
