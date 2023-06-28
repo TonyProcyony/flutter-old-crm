@@ -2,7 +2,7 @@
 
 **A simple application to manage a pub's warehouse and make orders simpler!**
 
-https://github.com/TonyProcyony/flutter-old-crm/assets/80834421/ceef23dc-dd95-4410-99a7-15f0488d91f3
+https://github.com/TonyProcyony/flutter-old-crm/assets/80834421/948521d9-0340-46d2-a5f8-7422606dcc29
 
 ## What's the point?
 
