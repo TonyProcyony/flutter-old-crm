@@ -28,9 +28,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         await FirebaseFirestore.instance.collection('products').add(product);
         Navigator.of(context).pop();
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future<void> getVendors() async {

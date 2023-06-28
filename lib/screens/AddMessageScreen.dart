@@ -14,14 +14,19 @@ class AddMessageScreen extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.background,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: ListView.builder(
         itemCount: cartProvider.cart.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(cartProvider.cart[index].vendor!),
+            title: Text(
+              cartProvider.cart[index].vendor!,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
             onTap: () {
               showDialog(
                 context: context,

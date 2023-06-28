@@ -216,9 +216,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                     ),
                   );
                   Navigator.of(context).pop();
-                } catch (e) {
-                  print(e);
-                }
+                } catch (e) {}
               },
               child: const Text('Aggiungi al carrello'),
             ),

@@ -61,7 +61,6 @@ class CartProvider extends ChangeNotifier {
         ..products = [product];
       cart.add(order);
     }
-    print(cart);
     notifyListeners();
   }
 

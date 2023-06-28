@@ -23,7 +23,6 @@ class _CartScreenState extends State<CartScreen> {
         }
       }
     }
-    print(products);
   }
 
   @override

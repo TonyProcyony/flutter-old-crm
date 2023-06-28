@@ -2,7 +2,7 @@
     package="com.example.flutter_old_crm">
    <application
         android:label="flutter_old_crm"
-        android:name="${applicationName}"
+        android:name="Old WMS"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
